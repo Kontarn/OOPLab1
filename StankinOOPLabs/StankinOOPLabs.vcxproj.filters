@@ -23,7 +23,16 @@
     <Text Include="InputText.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="MyLittleBD.txt">
+    <Text Include="Group1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Group2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Group3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Group4.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -142,8 +142,11 @@
     <ClCompile Include="StankinOOPLabs.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Group2.txt" />
+    <Text Include="Group3.txt" />
+    <Text Include="Group4.txt" />
     <Text Include="InputText.txt" />
-    <Text Include="MyLittleBD.txt" />
+    <Text Include="Group1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
