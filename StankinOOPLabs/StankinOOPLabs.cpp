@@ -258,19 +258,6 @@ public:
 	}
 };
 
-//void OutputEngineer() {
-//	ifstream fout;
-//	string str;
-//	string eng = "инженер";
-//	fout.open("Group1.txt");
-//	while (!fout.eof()) {
-//		str = "";
-//		getline(fout, str);
-//		if (str.find(eng) != string::npos) {
-//			cout << str;
-//		}
-//	}
-//}
 int main()
 {
 	setlocale(LC_ALL, "ru");
@@ -298,19 +285,6 @@ int main()
 	gr4.DataBaseFill();
 	gr4.OutputEngineer();
 	cout << endl;
-	
-	//gr1.OutputEngineer();
-	//string str;
-	//string eng = "Инженер";
-	//ft.open("Group1.txt");
-	//while (!ft.eof()) {
-	//	str = "";
-	//	getline(ft, str);
-	//	if (str.find(eng) != string::npos) {
-	//		cout << str;
-	//	}
-	//}
-	//ft.close();
 	return 0;
 	_CrtDumpMemoryLeaks();
 }
