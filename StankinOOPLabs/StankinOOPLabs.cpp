@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -44,14 +45,16 @@ public:
 		//fout.open("Group1.txt");
 	}
 	void DataBaseFill() override {
-
+		string len;
 		while (!fin.eof()) {
 			str = "";
-			for (int i = 0; i < str.size(); i++) {
-				if (str)
-			}
 			getline(fin, str);
-			fout << str << "\n";
+			//len = str.size() - 1;
+			len = str.substr(str.size() - 1);
+			if (len == "1") {
+				fout << str << "\n";
+			}
+			
 		}
 	}
 	~Group1() {
