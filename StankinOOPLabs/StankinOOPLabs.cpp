@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -220,8 +221,55 @@ void OutputEngineer(vector <string> grMass) {
 		fin.close();
 	}
 }
-void OutputNotСhairman() { // Вывод председателей
+/*в порядке возрастания года рождения данные о всех не председателях.*/
+void OutputNotСhairman(vector <string> grMass) { // Вывод председателей
+	ifstream fin;
+	string str;
+	int findStr, findStrLast;
+	int VarYear = 0;
+	string tempVarYear = "";
+	map <string, int> ChMan;
+	vector <string> sortChairman;
+	cout << "Вывод всех имеющихся председателей: " << endl;
+	for (int i = 0; i < grMass.size(); i++) {
+		fin.open(grMass[i], fstream::in | fstream::out);
+		string eng = "председатель";
+		while (!fin.eof()) {
+			str = "";
+			getline(fin, str);
+			if (str.find(eng) != string::npos) {
+				ChMan.emplace(str, 0);
+				sortChairman.push_back(str);
+				//cout << str << endl;
+			}
+		}
+		fin.close();
+	}
+	// int i = 0; i < sortChairman.size(); i++
+	for (map <string, int> ::iterator it = ChMan.begin(); it != ChMan.end(); ++it) {
 
+		findStr = it->first.find_first_of(",", 0);
+		if (findStr != string::npos) {
+			findStr--;
+			findStrLast = findStr;
+			while (findStr != (findStrLast-4)) {
+				tempVarYear += it->first[findStr];
+				findStr--;
+			}
+			reverse(tempVarYear.begin(), tempVarYear.end());
+			ChMan[it->first] = stoi(tempVarYear);
+			
+			//cout << tempVarYear << endl;
+			
+			/*if (stoi(tempVarYear) > VarYear){
+				auto it = sortChairman.cbegin();
+				sortChairman.emplace(it, sortChairman[i]);
+				sortChairman.erase(it+i);
+			}*/
+			//cout << endl;
+		}
+		tempVarYear = "";
+	}
 }
 int main()
 {
@@ -242,6 +290,8 @@ int main()
 	gr4.DataBaseFill();
 	// --------------Вывод всех инженеров------------------
 	OutputEngineer(grMass);
+	// -------Вывод председателей согласно условию---------
+	OutputNotСhairman(grMass);
 	return 0;
 	_CrtDumpMemoryLeaks();
 }
