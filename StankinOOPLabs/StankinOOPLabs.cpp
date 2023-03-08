@@ -2,13 +2,13 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
 class Groups {
 public:
 	virtual void DataBaseFill() = 0;
-	virtual void OutputEngineer() = 0;
 };
 class Group1 : public Groups {
 	string str;
@@ -20,9 +20,7 @@ public:
 		fin.exceptions(ifstream::badbit | ifstream::failbit);
 		try
 		{
-			//cout << "Попытк открыть файл 'InputText.txt': " << endl;
-			fin.open(nameInpFile);
-			//cout << "Успешно" << endl;
+			fin.open(nameInpFile); // Проверка открыть файл 'InputText.txt'
 		}
 		catch (const ifstream::failure& ex)
 		{
@@ -32,9 +30,7 @@ public:
 		}
 		try
 		{
-			//cout << "Попытк открыть файл 'Group1.txt': " << endl;
-			fs.open(GroupFile, fstream::in | fstream::out);
-			//cout << "Успешно" << endl;
+			fs.open(GroupFile, fstream::in | fstream::out); // Попытка открыть файл 'Group1.txt'
 		}
 		catch (const ofstream::failure& ex)
 		{
@@ -52,19 +48,6 @@ public:
 			if (groupNum == "1") {
 				fs << str << "\n";
 			}
-			
-		}
-	}
-	void OutputEngineer() override {
-		fs.clear();
-		fs.seekg(0);
-		string eng = "инженер";
-		while (!fs.eof()) {
-			str = "";
-			getline(fs, str);
-			if (str.find(eng) != string::npos) {
-				cout << str;
-			}
 		}
 	}
 	~Group1() {
@@ -81,9 +64,7 @@ public:
 		fin.exceptions(ifstream::badbit | ifstream::failbit);
 		try
 		{
-			//cout << "Попытк открыть файл 'InputText.txt': " << endl;
-			fin.open(nameInpFile);
-			//cout << "Успешно" << endl;
+			fin.open(nameInpFile); // Попытка открыть файл 'InputText.txt'
 		}
 		catch (const ifstream::failure& ex)
 		{
@@ -93,9 +74,7 @@ public:
 		}
 		try
 		{
-			//cout << "Попытк открыть файл 'Group2.txt': " << endl;
-			fs.open(GroupFile, fstream::in | fstream::out);
-			//cout << "Успешно" << endl;
+			fs.open(GroupFile, fstream::in | fstream::out); // Попытка открыть файл 'Group2.txt'
 		}
 		catch (const ofstream::failure& ex)
 		{
@@ -115,18 +94,6 @@ public:
 				fs << str << "\n";
 			}
 
-		}
-	}
-	void OutputEngineer() override{
-		fs.clear();
-		fs.seekg(0);
-		string eng = "инженер";
-		while (!fs.eof()) {
-			str = "";
-			getline(fs, str);
-			if (str.find(eng) != string::npos) {
-				cout << str;
-			}
 		}
 	}
 	~Group2() {
@@ -179,18 +146,6 @@ public:
 
 		}
 	}
-	void OutputEngineer() {
-		fs.clear();
-		fs.seekg(0);
-		string eng = "инженер";
-		while (!fs.eof()) {
-			str = "";
-			getline(fs, str);
-			if (str.find(eng) != string::npos) {
-				cout << str;
-			}
-		}
-	}
 	~Group3() {
 		fin.close();
 		fs.close();
@@ -240,51 +195,53 @@ public:
 
 		}
 	}
-	void OutputEngineer() override {
-		fs.clear();
-		fs.seekg(0);
-		string eng = "инженер";
-		while (!fs.eof()) {
-			str = "";
-			getline(fs, str);
-			if (str.find(eng) != string::npos) {
-				cout << str;
-			}
-		}
-	}
 	~Group4() {
+
 		fin.close();
 		fs.close();
 	}
 };
 
+// Функция для вывода всех инженеров
+void OutputEngineer(vector <string> grMass) {
+	ifstream fin;
+	string str;
+	cout << "Вывод всех имеющихся инженеров: " << endl;
+	for (int i = 0; i < grMass.size(); i++) {
+		fin.open(grMass[i], fstream::in | fstream::out);
+		string eng = "инженер";
+		while (!fin.eof()) {
+			str = "";
+			getline(fin, str);
+			if (str.find(eng) != string::npos) {
+				cout << str << endl;
+			}
+		}
+		fin.close();
+	}
+}
+void OutputNotСhairman() { // Вывод председателей
+
+}
 int main()
 {
 	setlocale(LC_ALL, "ru");
+	vector <string> grMass = { "Group1.txt", "Group2.txt", "Group3.txt", "Group4.txt" };
+	// ------------Заполнение базы данных------------------
 	// -------------------Group1---------------------------
-	Group1 gr1("InputText.txt", "Group1.txt");
+	Group1 gr1("InputText.txt", grMass[0]);
 	gr1.DataBaseFill();
-	cout << "Вывод всех инженеров в группе: " << endl;
-	gr1.OutputEngineer();
-	cout << endl;
 	// -------------------Group2---------------------------
-	cout << endl;
-	Group2 gr2("InputText.txt", "Group2.txt");
+	Group2 gr2("InputText.txt", grMass[1]);
 	gr2.DataBaseFill();
-	gr2.OutputEngineer();
-	cout << endl;
 	// -------------------Group3---------------------------
-	cout << endl;
-	Group3 gr3("InputText.txt", "Group3.txt");
+	Group3 gr3("InputText.txt", grMass[2]);
 	gr3.DataBaseFill();
-	gr3.OutputEngineer();
-	cout << endl;
 	// -------------------Group4---------------------------
-	cout << endl;
-	Group4 gr4("InputText.txt", "Group4.txt");
+	Group4 gr4("InputText.txt", grMass[3]);
 	gr4.DataBaseFill();
-	gr4.OutputEngineer();
-	cout << endl;
+	// --------------Вывод всех инженеров------------------
+	OutputEngineer(grMass);
 	return 0;
 	_CrtDumpMemoryLeaks();
 }
