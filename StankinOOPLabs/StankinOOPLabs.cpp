@@ -226,10 +226,14 @@ void OutputNotСhairman(vector <string> grMass) { // Вывод председателей
 	ifstream fin;
 	string str;
 	int findStr, findStrLast;
-	int VarYear = 0;
+	int VarYear;
 	string tempVarYear = "";
 	map <string, int> ChMan;
-	vector <string> sortChairman;
+	vector <string> ChManFinish;
+	//vector <string> sortChairman;
+	// 
+	//cout << ChMan.size();
+	// Заполняем массив всеми людьми, которые являются председателями
 	cout << "Вывод всех имеющихся председателей: " << endl;
 	for (int i = 0; i < grMass.size(); i++) {
 		fin.open(grMass[i], fstream::in | fstream::out);
@@ -239,15 +243,16 @@ void OutputNotСhairman(vector <string> grMass) { // Вывод председателей
 			getline(fin, str);
 			if (str.find(eng) != string::npos) {
 				ChMan.emplace(str, 0);
-				sortChairman.push_back(str);
+				//sortChairman.push_back(str);
 				//cout << str << endl;
 			}
 		}
 		fin.close();
 	}
+	//cout << ChMan.size();
 	// int i = 0; i < sortChairman.size(); i++
+	// Заполняем значения словаря годом рождения председателей
 	for (map <string, int> ::iterator it = ChMan.begin(); it != ChMan.end(); ++it) {
-
 		findStr = it->first.find_first_of(",", 0);
 		if (findStr != string::npos) {
 			findStr--;
@@ -258,17 +263,26 @@ void OutputNotСhairman(vector <string> grMass) { // Вывод председателей
 			}
 			reverse(tempVarYear.begin(), tempVarYear.end());
 			ChMan[it->first] = stoi(tempVarYear);
-			
-			//cout << tempVarYear << endl;
-			
-			/*if (stoi(tempVarYear) > VarYear){
-				auto it = sortChairman.cbegin();
-				sortChairman.emplace(it, sortChairman[i]);
-				sortChairman.erase(it+i);
-			}*/
-			//cout << endl;
 		}
 		tempVarYear = "";
+	}
+	auto it = ChMan.begin();
+	VarYear = it->second;
+	string VarYearKey;
+	while (ChMan.size() != 0) {
+		for (auto it = ChMan.begin(); it != ChMan.end(); ++it) {
+			if (it->second >= VarYear) {
+				VarYear = it->second;
+				VarYearKey = it->first;
+			}
+		}
+		ChManFinish.push_back(VarYearKey);
+		ChMan.erase(VarYearKey);
+		VarYear = 0;
+	}
+	// Вывод вектора в обратном порядке
+	for (auto it = ChManFinish.rbegin(); it != ChManFinish.rend(); ++it) {
+		cout << *it << endl;
 	}
 }
 int main()
