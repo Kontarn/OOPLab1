@@ -7,8 +7,8 @@ public:
     Parent(){
         this->str = new string();
     }
-    Parent(const Parent &other) {
-        this->str = other.str;
+    Parent(const Parent &other):str(new string) {
+        *str = *(other.str);
     }
     virtual ~Parent() {
         delete str;
@@ -27,6 +27,9 @@ int main()
     setlocale(LC_ALL, "ru");
     vector<Parent*>* BD1 = new vector<Parent*>;
     vector<Parent*>* BD2 = new vector<Parent*>;
+
+    Parent p1;
+    Parent p2(p1);
     cout << "Вывод вектора BD1: " << endl;
     for (int i = 0; i < 4; i++) {
         BD1->push_back((i % 2 == 0) ? new Parent() : new Child());
