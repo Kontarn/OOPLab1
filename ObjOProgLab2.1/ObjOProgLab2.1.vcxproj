@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="ObjOProgLab2.1.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="BD.txt" />
+    <Text Include="Lib112.txt" />
+    <Text Include="Lib362.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
